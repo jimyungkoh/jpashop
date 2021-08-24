@@ -20,5 +20,6 @@ public class Member {
     private Address address;
 
     @OneToMany(mappedBy = "member")
+    //mappedBy: 연관관계의 주인이 아님을 선언(읽기전용)
     private List<Order> orders = new ArrayList<>();
 }
