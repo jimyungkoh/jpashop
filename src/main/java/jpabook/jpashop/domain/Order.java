@@ -1,8 +1,6 @@
 package jpabook.jpashop.domain;
 
-import lombok.Generated;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +10,7 @@ import java.util.List;
 @Entity
 @Table(name ="orders")
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
     @Id @GeneratedValue
     @Column(name = "order_id")
@@ -50,7 +49,7 @@ public class Order {
     }
 
     //==생성 메서드==//
-    public static Order createOrder(Member member, Delivery delivery, OrderItem orderItems) {
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
         Order order =new Order();
         order.setMember(member);
         order.setDelivery(delivery);
@@ -82,7 +81,7 @@ public class Order {
     public int getTotalPrice(){
         int totalPrice=0;
         for(OrderItem orderItem : orderItems){
-            totalPrice+=orderItem.getOrderPrice();
+            totalPrice+=orderItem.getTotalPrice();
         }
         return totalPrice;
     }
